@@ -1,0 +1,59 @@
+===========================
+module2: routage inter-VLAN
+===========================
+
+-Le routage inter-VLAN est un processus d'acheminement du trafic réseau d'un VLAN à un autre.
+
+les types de routage IV:
+	~routage IV existant	: dans le routeur, on associe a chaque VLAN une interface.
+		-le routeur doit dispose de plsr interfaces pour se connecte au interfaces du SWITCH dans chaque VLAN
+		-les interfaces du routeur doivent etre configurees comme passerelle par default
+
+	~router-on-a-stick	: ne nécessite qu'une seule interface Ethernet physique pour acheminer le trafic entre plusieurs VLAN sur un réseau.
+		- l'interface Ethernet du routeur est configurée comme un trunk 802.1Q et est connectée à un port de trunk sur un commutateur de couche 2.
+		- on configure des sous interface virtuelle associe a chaque VLAN avec une @IP
+
+	~commutateur de couche3	: utiliser des commutateurs de couche 3 et des interfaces virtuelles commutées (SVI).
+		- les SVI sont créés de la même manière que l'interface VLAN de gestion est configurée.
+		- plus rapide que le modèle Router-on-a-stick (routage assure de maniere materielle)
+		- rend le port du SWITCH de couche2 en couche3(port route(similaire a un port de routeur)) 
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

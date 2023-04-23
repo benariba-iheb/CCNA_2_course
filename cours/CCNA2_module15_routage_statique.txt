@@ -1,0 +1,30 @@
+=================================
+CCNA2_module15: routage statique
+=================================
+
+-types de routes statiques:
+	~ Route statique standard
+	~ Route statique par-défaut(route quad-zéro) : route statique qui correspond a tt les paquets
+		- utilisee pour economiser l'espace memoire
+		- utilisee pour stocker des routes pour tous les réseaux sur internet (ISP | routeur d'extremite)
+		- utilisee qd il y a pas de bit de correspandance avec une autre route
+
+	~ Route statique flottante: se sont des routes statiques utilisées pour fournir un chemin de secours à une route statique ou une route dynamique principale, en cas de défaillance de la liaison.
+		- configuree avec une distance administrative superieur
+		
+	~ Route statique récapitulative: des routes statique qui englobe plsr route reseau qui se ressamble  
+
+-Routes d’hôtes: une route qui a un mask (IPv4:/32 || IPv6:/128)
+	~route d'hote installee automatiquement:
+		- IOS l'installe qd une @ d'interface est configuree sur le routeur (dans la table de routage: [connected C / local L]).
+	~Route d'hôte statique:
+		-route statique configurée manuellement pour diriger le trafic vers un périphérique de destination spécifique (dans la table de routage: [static S])..
+
+
+-les types de troncons suivant:
+	~ Route de tronçon suivant : adresse IP du tronçon suivant est spécifiée. (minimum)
+	~ Route statique connectée directement: interface de sortie du routeur est spécifiée. (pour les connexions point a point(serial)) (a eviter pour le IPv6)
+	~ Route statique entièrement spécifiée: adresse IP et interface de sortie du tronçon suivant sont spécifiées. (meilleur choix)
+	
+-Remarque: ~Il est recommandé d'utiliser l'adresse de tronçon suivant. Les routes statiques directement connectées ne doivent être utilisées qu'avec des interfaces série point à point.
+	   ~Une route statique entièrement spécifiée doit être utilisée parce que les adresses link-local IPv6 ne figurent pas dans la table de routage IPv6.
