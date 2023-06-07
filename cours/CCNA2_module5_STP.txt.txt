@@ -1,0 +1,108 @@
+============================
+STP(spanning tree protocol):
+============================
+
+-redondance aux niveaux 1 et 2 de la couche OSI:
+	~ elemine les points de defaillances uniques
+	~ prevenir l'interruption des services reseau
+	~ problemes:
+		- instabilitees des table MAC dans le reseau
+		- tempetes de diffusion
+		- retransmission des paquets
+		- pas de mecanismes pour pour identifier et eleiminer les trames en boucle infini
+	~necessite un protocole de prevention des boucles (STP (IEEE 802.1D))
+
+-STP: 
+	~protocole reseau qui permet d'obtenir une topologie LAN avec redondance sans boucle de couche 2
+	~version STP:
+		-STP:			protocole de base
+		-PvSTP: 		une instance STP par VLAN(ne fonctionne pas avec le dot1q)
+		-PvSTP+:		PvSTP + compatibilite avec dot1q
+		-RSTP+:(IEEE 802.1w)	amelioration de vitesse de convergeance (reduit la duree de passage d'un port <blocking> en port <forwarding>)
+		-MSTP: 			MULTIPLE SPANNING TREE PROTOCOL /  RSTP + adaptation pour les VLAN
+
+
+---------------
+fonctionnement:
+---------------
+
+-BPDU(Bridge PDU):
+ 	le BPDU est place entre le FLAG header et le port_ID header, structure complete du BPDU:
+	{protocole_ID} {version} {message type} {flags} [root_ID] [root path cost] [Bridge_ID] [port_ID] [message age] [maximum age] [hello time] [forward delay]
+	
+	~BRIDGE_ID:
+		- priorite des ponts: c une valeur controlable par l'admin reseau pour determiner la priorite d'un switch
+					ces valeurs:	0 < par default: 32768 < 61440 	avec des pas de 4096
+		- ID systeme etandue: en PvSTP cisco dedia cette partie aux ID vlan 
+		- @MAC: lorsque deux commutateur sont configures avec la meme priorite l'@ MAC serra le facteur decidant
+
+		{priorite des ponts} {ID system etandue} { @MAC }
+		    	4bits		    12bits  	  48bits
+
+	
+
+-les types de ports en STP/RSTP:
+	- root bridge(pont racine): le commutateur designe par le reseau pour etre l'origine de l'arbre STP
+				   c le switch avec le plus bas BID dans le reseau
+	- root port(port racine): un port de commutateur qui a le meilleur cout d'acheminement au pont racine
+	- designated port: un port qui vat forwarder les BPDU selectione a base de root cost
+	- alternate port(RSTP): le backup d'un port designe qd le port oppose n'est pas un port racine
+	- backup port(RSTP): le backup d'un port racine
+	
+l'algorithme STA:
+	~choisir le pont racine:
+		- chaque bridge s'annonce comme le pont racine 
+		- quand un switch recoit un BPDU superieur(priorite basse) au root bridge qu'il connait actuellement(lui meme au debut), il remplace ce root_ID par celui qu'il vient de decouvrir.
+
+	~ designation des roles aux ports:
+		- le root bridge elu envoie des BPDU dans toutes les directions
+		- apres chaque "forwarding" le cout de la route est ajoute au root path cost. les couts des interfaces:
+			   canal	     	cost
+			ethernet        =     	100
+			Fast-Ethernet   =     	19
+			Gigabit		= 	4
+			etherchannel gig=	3
+			10gigabit	=	2			
+		- l'etat du port serra choisit selon le root path cost 
+			~ le port avec root path cost le plus bas recue serra designe comme root port (le port fesant face au root port est tjr un designated port)
+			~ les autres port seront soit designe soit bloquer (un seul root port par switch)
+			~ si le path cost est egale --> on compare le BID --> port_ID
+
+		- les types de ports STP:
+			~ root port: 		designe le meilleur chemin au root bridge (recoit les BPDU)
+			~ designated port:	port forwarding qui transmet les BPDU 
+			~ port bloque:		les ports restant apres la designation des roles 
+
+
+-les etats des port STP:
+	~ initialisation: 	activation du port (pas de temps d'attente)
+	~ blocking(20s): 	le port jette les trames entrantes 	    / le port accepte les BPDU et ne les retransmets pas / le port ne complete pas sa table MAC
+	~ listening(15s):		  //	    //	    //	   	    / accepte les BPDU et les retransmets 		 / ne complete pas sa table MAC
+	~ learning(15s):	accepte les trames mais les transmet pas    / accepte les BPDU et les retransmets	 	 / incorpore cette adresse dans sa table MAC
+	~ forwarding:		 //	//    //    et les transmets  	    / //	//		//			 /     //	//	//	//	//
+
+rmrq: lors d'un changement d'etat un port resterra en etat blocking pour eviter le recalcul de la topologie STP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
