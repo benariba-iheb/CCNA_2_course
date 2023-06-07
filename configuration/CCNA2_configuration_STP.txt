@@ -1,0 +1,21 @@
+===============================
+CCNA2_configuration_STP(PvSTP):
+===============================
+
+-configuration de la priorite PvSTP:
+	switch(config)# spanning-tree {vlan_ID} priority {priority}	// priority par defaut 32768 plus ou moins 4096(doit etre un multiple de 4096)
+	switch(config)# spanning-tree {vlan_ID} root primary		// (priority = 24576) selectionne un BID automatiquement pour devenir le root bridge
+	switch(config)# spanning-tree {vlan_ID} root secondary		// (priority = 28672) 
+	
+-configuration du cost d'une interface:
+	switch(config)# spanning-tree {vlan_ID} cost {cost}		// le cost doit etre definit pour chaque VLAN s'il y on a plsr
+
+
+-affichage STP:
+	switch# show spanning-tree {vlan_ID}			//   {nom_VLAN} | {protocol STP utilise} | {priorite configuree}	
+								// info sur le root bridge: {adress MAC} | {root path cost} | {interface connectee}
+								// info sur le bridge:	   	//		//	    | informations sur les ports (role / etat / cost)    
+
+	switch# show spanning-tree {interface_ID}		// affiche les informations STP pour un port specifique
+	switch# show spanning-tree {root / blockedports}	// affiche des information sur le root bridge et les port bloques respectivement par VLAN
+	switch# debug spanning-tree events			// lance un debugger spanning tree
