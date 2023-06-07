@@ -15,11 +15,11 @@ STP(spanning tree protocol):
 -STP: 
 	~protocole reseau qui permet d'obtenir une topologie LAN avec redondance sans boucle de couche 2
 	~version STP:
-		-STP:			protocole de base
+		-STP:  (IEEE 802.1d)	protocole de base
 		-PvSTP: 		une instance STP par VLAN(ne fonctionne pas avec le dot1q)
 		-PvSTP+:		PvSTP + compatibilite avec dot1q
 		-RSTP+:(IEEE 802.1w)	amelioration de vitesse de convergeance (reduit la duree de passage d'un port <blocking> en port <forwarding>)
-		-MSTP: 			MULTIPLE SPANNING TREE PROTOCOL /  RSTP + adaptation pour les VLAN
+		-MSTP: (IEEE 802.1s)	MULTIPLE SPANNING TREE PROTOCOL /  RSTP + adaptation pour les VLAN
 
 
 ---------------
