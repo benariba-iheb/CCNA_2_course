@@ -12,20 +12,20 @@ VLANS:
 
 -attribution de port VLAN:(se font apres la creation de VLAN)
 	-ACCESS:
-		SW(config)# interface [range] {interface-id} 	#range est utilise pour la selection de plsr interfaces a la fois
+		SW(config)# interface [range] {interface-id} 					#range est utilise pour la selection de plsr interfaces a la fois
 		SW(config-if)# switchport mode access
 		SW(config-if)# switchport access vlan {vlan-id}
 
 	-VOICE: (se fait apres l'attribution du VLAN de donnees)
 		SW(config-if)# switchport access {vlan-id}		
-		SW(config-if)# mls qos trust cos		# définit l'état de confiance d'une interface et indiquer quels champs du paquet sont utilisés pour classer le trafic.
+		SW(config-if)# mls qos trust cos							# définit l'état de confiance d'une interface et indiquer quels champs du paquet sont utilisés pour classer le trafic.
 		SW(config-if)# switchport voice {vlan-id}
 
 	-TRUNK:
 		Switch(config-if)# switchport mode trunk
-		Switch(config-if)# switchport trunk native vlan {vlan-id}    // no switchport trunk allowed vlan
-		Switch(config-if)# switchport trunk allowed vlan {vlan-list} // no switchport trunk native vlan
-		Switch(config-if)# switchport trunk allowed vlan add {vlan-list} // to not suppress the other VLANs
+		Switch(config-if)# switchport trunk native vlan {vlan-id}   				 # no switchport trunk allowed vlan
+		Switch(config-if)# switchport trunk allowed vlan {vlan-list}			 # no switchport trunk native vlan
+		Switch(config-if)# switchport trunk allowed vlan add {vlan-list}			 # to not suppress the other VLANs
 	
 	
 -protocole DTP:
@@ -46,9 +46,9 @@ routage inter-VLAN:
 		~creation de VLAN
 		~creation de l'interface de gestion:
 			SW(config)# interface {vlan-id}
-			SW(config-if)# ip address {ip-address} {netmask}	#SVI du VLAN natif
+			SW(config-if)# ip address {ip-address} {netmask}						#SVI du VLAN natif
 			SW(config-if)# no shutdown
-			SW(config)# ip default-gateway {@ sous interface routeur}   #les passerelles sont configurees dans le mode priviligie
+			SW(config)# ip default-gateway {@ sous interface routeur}   			#les passerelles sont configurees dans le mode priviligie
 
 		~configuration des ports d'acces
 
@@ -79,9 +79,9 @@ routage inter-VLAN:
 
 	-configuration des ports:
 		SW(config)# interface {interface-id}
-		SW(config-if)# description {description}
 		SW(config-if)# switchport mode access
 		SW(config-if)# switchport access vlan {vlan-id}
+		SW(config-if)# description {description}
 
 	-activation du routage dans le SWITCH:
 		SW(config)# ip routing
@@ -92,18 +92,18 @@ la configuration de la commande de configuration de l'interface no switchport su
 
 
 -verification routage inter-vlan:
-	R# show ip route | begin Gateway   	#verification de la table de routage
-	R# show ip interface brief | include up #verification de la ceation/configuration des sous-interfaces
-	R# show interfaces {interface-id}	#verification des ss-interfaces
-	SW# show interfaces trunk		#verification des ports trunks dans le switch
+	R# show ip route | begin Gateway   			# verification de la table de routage
+	R# show ip interface brief | include up			# verification de la ceation/configuration des sous-interfaces
+	R# show interfaces {interface-id}				# verification des ss-interfaces
+	SW# show interfaces trunk					# verification des ports trunks dans le switch
 
 ---------------------------------------------------------------------------------------------------------------------------------------
 -verification VLAN:
-	SW# show vlan		 	 : liste de tous les VLAN configurés et les ports associes.
-	SW# show vlan brief		 : nom du VLAN, son état et ses ports en une seul ligne.	
-	SW# show vlan id {vlan-id}	 : informations sur un VLAN identifié. (MAX: 4094)
-	SW# show vlan name {vlan-name}   : informations sur un VLAN identifié. (MAX: 32 char)
-	SW# show vlan summary		 : résumé sur les VLAN(nombre VLAN , nombre VLAN_VTP , nombre VLAN_etandue).
+	SW# show vlan		 	 : 			liste de tous les VLAN configurés et les ports associes.
+	SW# show vlan brief		 : 			nom du VLAN, son état et ses ports en une seul ligne.	
+	SW# show vlan id {vlan-id}	 :			informations sur un VLAN identifié. (MAX: 4094)
+	SW# show vlan name {vlan-name}   : 	informations sur un VLAN identifié. (MAX: 32 char)
+	SW# show vlan summary	 :	 		résumé sur les VLAN(nombre VLAN , nombre VLAN_VTP , nombre VLAN_etandue).
 
 
 	cmnd supp:
@@ -116,7 +116,7 @@ la configuration de la commande de configuration de l'interface no switchport su
 
 
 -suppresion de tout les VLANs: 
-	SW# erase startup-config 	#apres avoire debranche les cables des ports du switch
+	SW# erase startup-config 				#apres avoire debranche les cables des ports du switch
 	SW# delete vlan.dat
 	
 
