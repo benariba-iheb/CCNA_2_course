@@ -1,0 +1,45 @@
+===========================
+configuration etherchannel:
+===========================
+
+- configuration LACP:
+	~ configuration des ports:
+		S(config)# interface range {interfaces_ether}
+		S(config-if-range)# channel-group {group_LACP} mode {active/passive}
+		
+	~ acces aux ports:
+		S(config)# interface port-channel {group_LACP}
+
+------------------------------------------------------------------------
+
+- configuration PAgP:
+	~ configuration des ports:
+		S(config)# interface range {interfaces_ether}
+		S(config-if-range)# channel-group {group_LACP} mode {desirable/auto}
+		
+	~ acces aux ports:
+		S(config)# interface port-channel {group_LACP}
+
+------------------------------------------------------------------------
+
+-load-balancing:
+	S(config)# port-channel load-balance {mode}
+
+
+=============
+verification:
+=============
+
+#dans IOS les port-channel sont representes par "Po"#
+
+- affichage de l'etat generale du port-channel:
+	S# show interfaces port-channel {ID_channel}
+
+- affichage de l'etat du port-channel:
+	S1# show interfaces port-channel summary
+
+- affichage de la configuration du port-channel:
+	S1# show etherchannel port-channel 
+
+- affichage d'une inerface specifique de l'etherchannel:
+	S1# show interface {interface_ID} etherchannel 

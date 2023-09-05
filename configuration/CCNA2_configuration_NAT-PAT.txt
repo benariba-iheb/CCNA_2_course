@@ -1,0 +1,68 @@
+==================
+configuration NAT:
+==================
+
+- static NAT: utilise pour mape une adresse inside a une adresse outside
+
+	~ configuration du cote inside:
+		R(config)# interface {interface_inside}
+		R(config-if)# ip nat inside
+
+	~ configuration du cote outside:	
+		R(config)# interface {interface_outside}
+		R(config-if)# ip nat outside
+
+		R(config)# ip nat source static {inside_IP@} {outside_IP@}
+
+----------------------------------------------------------------------------------------------
+
+- dynamic NAT: utilise pour offrire une translation dynamique d'@IP
+
+	~ configuration du cote inside:
+		R(config)# interface {interface_inside}
+		R(config-if)# ip nat inside
+
+	~ configuration du cote outside:	
+		R(config)# interface {interface_outside}
+		R(config-if)# ip nat outside
+
+	~ creation du pool d'@ et de l'ACL:
+		R(config)# ip nat pool {nom_pool} {1ere_@IP_globale} {derniere_@IP_globale} {  prefix-lenght {longeur_prefixe} || netmask {masque_reseau}  }  []
+		R(config)# access-list {num_ACL} {permit/deny} {1ere_@IP_locale} {derniere_@IP_locale} {wildcard_mask}
+
+	~ mapping du pool et de l'ACL:
+		R(config)# ip nat inside source list {num_ACL} pool {nom_pool}
+
+----------------------------------------------------------------------------------------------
+
+-dynamic PAT: similaire au NAT dynamique mais ajoute au mapping les ports de couche transport.
+
+	~ configuration du cote inside:
+		R(config)# interface {interface_inside}
+		R(config-if)# ip nat inside
+
+	~ configuration du cote outside:	
+		R(config)# interface {interface_outside}
+		R(config-if)# ip nat outside
+
+	~ creation de l'ACL:
+		R(config)# access-list {num_ACL} {permit/deny} {1ere_@IP_locale} {derniere_@IP_locale} {wildcard_mask}
+
+	~ mapping du pool et de l'ACL:
+		R(config)# ip nat inside source list {num_ACL} interface {interface_outside} overload	#! differrance entre DY-NAT et DY-PAT !#
+
+- suppression du NAT:  
+	R(config)# clear ip nat translation *
+
+
+
+
+=============
+verification:
+=============
+
+- affichage de la table de translation: [protocole - inside_glob - inside_loc - outside_loc]
+	R# show ip nat translation
+
+-affichage du mapping (nat_pool / ACL) :
+	R# show ip nat statistics

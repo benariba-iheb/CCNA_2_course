@@ -1,0 +1,30 @@
+================================
+chapitre-1_SWITCH-configuration:
+================================
+
+-configuration des modes des ports:
+	~ S(config-if)# duplex {full|half}
+	~ S(config-if)# speed {10|100|1000}
+
+
+-auto-mdix:
+	~ S(config-if)# mdix auto
+	~ S# show controllers ethernet-controllerr {interface} phy | include MDIX  
+
+
+
+-verification switch:
+	~ S# show history 				# affiche l'historique des commandes
+	~ S# show mac address-table		
+	~ S# show interfaces {interface_id}		# affiche l'etat de la ligne et protocole liaison de donnees
+
+
+-memoire tompon:
+	~ R# terminal history size {nmbr de comande a sauvegarder}
+
+
+commande de filtrage:
+	~ R# show startup-config | section {vlan|...}	# Montre la section entière qui commence par l'expression de filtrage
+	~ R# show ip interfac br | include {up|...} 	# affiche toutes les lignes de sortie qui correspondent à l'expression de filtrage
+	~ R# show ip interfac br | exclude {up|...}	# exclu toutes les lignes de sortie qui correspondent à l'expression de filtrage
+	~ R# show ip interfac br | exclude {up|...}	# Affiche toutes les lignes de sortie à partir d'un certain point, en commençant par la ligne qui correspond à l'expression de filtrage

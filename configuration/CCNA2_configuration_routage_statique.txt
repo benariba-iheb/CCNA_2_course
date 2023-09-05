@@ -9,17 +9,13 @@ CCNA2_module15_configuration: routage statique
 		-route statique par-default:
 			Router(config)# ip route 0.0.0.0  0.0.0.0 {ip-address | exit-intf}
 
-
 	~IPv6:
 		-activation du routage IPv6:
-			Router(config)# ipv6 unicast-routing 
-
+			Router(config)# ipv6 unicast-routing 	
 		-route statique standard:
 			Router(config)# ipv6 route {ipv6-prefix/prefix-length} [ipv6-address | exit-intf + ipv6-address] (distance)
-
 		-route statique par-default:
 			Router(config)# ipv6 route ::/0 {ipv6-address | exit-intf}
-
 
 
 -verification de configuration:
