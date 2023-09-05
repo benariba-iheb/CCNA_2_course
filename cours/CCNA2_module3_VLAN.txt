@@ -9,45 +9,48 @@ module2: VLAN
 	~ cout reduit
 	~ meilleur performance
 	
+
 -types de VLAN:
-	~VLAN par defaut: (VLAN1) c le VLAN a qui tout les port du switch sont associe initialement  
-	~VLAN natif	: le VLAN qui n'est pas marque avec son VLAN_ID
-	~VLAN de gestion: le VLAN configure pour la gestion du reseau telnet SSH ...
-	~VLAN voice	: un VLAN concue pour transmettre le trafic vocale ainsi que optionellement le trafic de donnees (c un port access qui peut supporter 2 VLAN) 
-	~VLAN donnees	: les VLAN etiquete destine a transmettre les donnees entre un terminle et un SWITCH 
-
--ettiquettaage du VLAN VOICE:(le telephone IP cisco contient un commutateur integres (10/100) qui contient 3 ports)
-	~port 1: 	connecte a un commutateur/peripherique VOIP
-	~port 2:	interface 10/100 interne qui transporte le trafic VOIP son trafic doit etre ettiquete avec une valeur COS
-	~port 3:	(port ACCESS) connecte a un ordinateur
+	~ VLAN par defaut: (VLAN1) c le VLAN a qui tout les port du switch sont associes initialement  
+	~ VLAN natif	 : le VLAN qui n'est pas marque avec son VLAN_ID
+	~ VLAN de gestion: le VLAN configure pour la gestion du reseau telnet SSH ...
+	~ VLAN voice	 : un VLAN concue pour transmettre le trafic vocale ainsi que optionellement le trafic de donnees (c un port access qui peut supporter 2 VLAN) 
+	~ VLAN donnees	 : les VLAN etiquete destine a transmettre les donnees entre un terminle et un SWITCH 
 
 
--detils du champs de balise VLAN: (se trouve entre la balise MC_src et l balise TYPE)
+-ettiquettage du VLAN VOICE:(le telephone IP cisco contient un commutateur integres (10/100) qui contient 3 ports)
+	~ port 1: 	connecte a un commutateur/peripherique VOIP
+	~ port 2:	interface 10/100 interne qui transporte le trafic VOIP son trafic doit etre ettiquete avec une valeur CoS(Class of Service)
+	~ port 3:	(port ACCESS) connecte a un ordinateur
+
+
+-detils du champs de balise VLAN: (se trouve entre la balise MAC_src et la balise TYPE)
 
 	trame:	[MAC-dst] [MAC-src] [VLAN-header] [TYPE/lenght] {donnees} [FCS]
-
-	~type	  : (2 octets) definit le type du protocole utilise
-	~prioritee: (3bits) soutient la mise en ouevre de service
-	~CFI	  : (canonical Format ID) (1 bit) permet aux trames Token Ring d'être transportées sur les liaisons Ethernet.
-	~VLAN_ID  : (12 bits) numéro d'identification VLAN jusqu'a 4096 vlans
+	  
+	-[VLAN-header]:
+		~ type	   : (2 octets) definit le type du protocole utilise
+		~ prioritee: (3 bits) soutient la mise en ouevre de service
+		~ CFI	   : (1 bit) (canonical Format ID) permet aux trames Token Ring d'être transportées sur les liaisons Ethernet.
+		~ VLAN_ID  : (12 bits) numéro d'identification VLAN jusqu'a 4096 vlans
 
 
 ----
 3.3:
 ----
 -plages VLAN:
-	~1-1001(plage normale) :	
-		-la configuration est stockee dans la memoire FLASH du SWITCH dans fichier appele {vlan.dat}
+	~ 1-1001 (plage normale):	
+		-la configuration est stockee dans la memoire FLASH du SWITCH dans un fichier appele {vlan.dat}
 		-possible d'utilise le VTP pour synchronise entre ces VLAN
 
-	~1002-1005(plage reserve) :
+	~ 1002-1005 (plage reserve) :
 		-appartiennet a la plage normale
 		-reserve a des VLAN specifique (token-ring , FDDI , ....) 
 		-ils sont automatiquement cree et ne peuvent pas etre supprime
 
-	~1006-4094(VLAN a plage etendue) : 
-		-utilisés par les fournisseurs de services pour desservir de multiples clients
-		-Les configurations sont enregistrées, par défaut, dans la configuration en cours.
+	~ 1006-4094 (VLAN a plage etendue): 
+		-utilisés par les fournisseurs de services pour desservir de multiples clients.
+		-Les configurations sont enregistrées, par défaut, dans running-configuration.
 		-Ils prennent en charge moins de fonctions VLAN que les VLANs à portée normale.
 		-supporte que le mode VTP transparent 
 
@@ -59,25 +62,5 @@ module2: VLAN
 
 -le DTP est un protocole proprietaire cisco qui permet la connexion auto au periph. voisin.
 	~ accelere la configuration reseau
-	~ !RMRQ: Désactivez le protocole DTP sur les interfaces du commutateur Cisco connecté aux appareils qui ne le prennent pas en charge.	 
-	  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
+	!RMRQ: Désactivez le protocole DTP sur les interfaces du commutateur Cisco connecté aux appareils qui ne le prennent pas en charge.

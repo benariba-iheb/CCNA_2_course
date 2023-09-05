@@ -1,0 +1,51 @@
+==================================
+chapitre-2: concept de commutation
+==================================
+
+-types de trames(par rapport a leur direction):
+	~ ingress(entree): port qui fait passer les trames entrantes
+	~ egress(sortie): port qui fait passer les trames sortantes
+
+- la fonctionalitee du commutateur se resume dans sa capacitee a consulter sa table(port/@MAC) et transmettre en fonction du port d'entree et de l'addresse MAC-dest les trames ethernet. 
+
+- le tableau d'adresse MAC est stocke dans la memoire CAM(content addressable memory)
+
+- le fonctionnement du switch:
+	~ decouverte: examination du MAC-src et port-src de chaque trame
+		- MAC-src n'existe pas  		===>  MAC-src + port-src sont ajoutes a la table MAC
+		- MAC-src et port-src existe 		===>  reinitialise le compteur d'obsolescence(5min),   
+		- MAC-src existe et port-src differrant ===>  traitee comme nouvelle entree  et les informations precedantes sont ecrasees
+
+	~ transfert: examination du MAC-dst 
+		- MAC-dst existe 	===>  les trames sont transmises directement
+		- MAC-dst n'existe pas	===>  diffusion sur tous les port sauf celui d'entree
+	
+	
+- methodes de commutation:
+	~ stockage et retransmission(store and forward): la transmission est decidee apres avoire lu toute la trame et verifie la presence d'erreur (methode principale de CISCO)
+		- utilisee qd les vittesses des port-entree/port-sortie sont differante
+		- supprime les trames non-valide
+
+	~ coupure(cut-through): transmission apres avoire lu l'@MAC-dest et avoire trouve le port-dst
+		- adapte aux application HPC(high performance computing)
+		- peut encombree la largeur de bande avec des trames non-valide
+
+	~ sans-fragment(fragment-free): forme modifiee du cut-through, la transmission commance apres avoire lu le champ TYPE de la trame 
+		- meilleur verification d'erreurs que cut-through
+		- augmentation de latence minime
+
+
+- dommaine de collision:
+	~ se sont les segment de reseau qui partagent la meme bande passante entre les peripheriques
+	~ le mode duplex elimine les dommaine de collision au niv du reseau 
+	
+- dommaine de diffusion:
+	~ c le segment reseau qui peut etre atteint en envoyant une diffusion de couche-2
+	~ les routeurs segmente les dommaines de diffusion de couche-2
+	~ ces diffusion peuvent impacter negativement l'efficacite du reseau d'ou le besoin de les segmenter
+
+- solution pour la congestion du reseau:
+	~ vitesse de port rapide
+	~ commutation interne rapide
+	~ grandes memoires tompons de trames
+	~ haute densite de port

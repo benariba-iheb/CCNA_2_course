@@ -1,0 +1,30 @@
+=============
+etherchannel:
+=============
+
+- c une technologie d'aggregation de port pour permetre des liaisons redondantes tout en evitant le blocage STP des ports.
+
+- avantage etherchannel:
+	~ facilite la configuration de plsr interfaces dans le meme groupe
+	~ evite des depenses supplemanttaire sur les equipement
+	~ STP fonctionne considere les groupes etherchannel comme un seul port logique
+	~ plsr methodes d'equilibrage de charge (MAC_src - MAC_dst - IP_src ....)
+
+-restricitions:
+	~ les interfaces utilisee doivent etre du meme (type , VLAN , duplex)
+	~ un maximum de 8 port etherchannel peuvent etre configuree
+	~ 6 canneaux etherchannel peuvent etre configuree sur un seul commutateur
+
+	
+-protocole PAgP: protocole proprietaire de CISCO
+	mode :
+		~ on : 		force l'interface a passer en mode ether.
+		~ desirable : 	etat de negotiation actif
+		~ auto :	etat de negociation passif
+		!! "on" fonctionne seulement avec "on" 
+	
+-protocole LACP: protocole IEEE(802.3ad / 802.1AX)
+	mode :
+		~ on : 		force l'interface a passer en mode ether.
+		~ active :	etat de negotiation actif
+		~ passive : 	etat de negociation passif

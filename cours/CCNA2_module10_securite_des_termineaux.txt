@@ -8,9 +8,9 @@ CCNA2_module10: securite des termineaux
 	~ programme mlveillant (malware)
 
 -les appareils de securite reseau:
-	~VPN-routeur: 		fournit une connexion sécurisée aux utilisateurs distants sur un réseau public et dans le réseau d'entreprise.
-	~pare-feu de nouvelle generation(NGFW):	 inspection des paquets avec état, une visibilité et un contrôle des applications, un système de prévention des intrusions de nouvelle génération (NGIPS), une protection avancée contre les logiciels malveillants (AMP) et un filtrage d'URL.
-	~NAC:			comprend des services d'authentification, d'autorisation et de comptabilité (AAA / Authentication, Authorization, Accounting).
+	~ VPN-routeur: 		fournit une connexion sécurisée aux utilisateurs distants sur un réseau public et dans le réseau d'entreprise.
+	~ pare-feu de nouvelle generation(NGFW):	 inspection des paquets avec état, une visibilité et un contrôle des applications, un système de prévention des intrusions de nouvelle génération (NGIPS), une protection avancée contre les logiciels malveillants (AMP) et un filtrage d'URL.
+	~ NAC:			comprend des services d'authentification, d'autorisation et de comptabilité (AAA / Authentication, Authorization, Accounting).
 
 -de nos jours les termineaux sont proteges par:
 	~ NAC
@@ -48,16 +48,16 @@ RMRQ:	apres l'auth le routeur demande l'autorisation du serveur AAA
 -les types d'attaque de couche 2:
 	~ Attaques de Table MAC : 
 		-inondation de l'adresse MAC(en utilisant "macof").
-			~les commutateur  peut manquer de ressources pour stocker les adresses MAC.
-			~l'acteur genere rapidement de nombreuses @MAC
-			~qd la table MAC du switch est remplie ils commance a inonder toutes les trames qu'il recoit
-			~ces trames peuvent etre capturees par un outil de reniflage
+			~ les commutateur  peut manquer de ressources pour stocker les adresses MAC.
+			~ l'acteur genere rapidement de nombreuses @MAC
+			~ qd la table MAC du switch est remplie ils commance a inonder toutes les trames qu'il recoit
+			~ ces trames peuvent etre capturees par un outil de reniflage
 
 	~ Attaques de VLAN : 
 		-attaques par saut: 
-			~l'acteur configure un hôte pour qu'il agisse comme un commutateur afin de profiter de la fonction de port de trunking automatique activée par défaut.
-			~L'acteur configure l'hôte pour usurper la signalisation 802.1Q et le protocole DTP.
-			~si l'operation passe avec succes l'acteur aurra acces a tt les VLANs.
+			~ l'acteur configure un hôte pour qu'il agisse comme un commutateur afin de profiter de la fonction de port de trunking automatique activée par défaut.
+			~ L'acteur configure l'hôte pour usurper la signalisation 802.1Q et le protocole DTP.
+			~ si l'operation passe avec succes l'acteur aurra acces a tt les VLANs.
 
 		-attaques par double marquage de VLAN: (cette attaque est unidirectionnelle / necessite que vous soyez dans le VLAN natif du port trunk)
 			~ L'en-tête externe a la balise VLAN de l'acteur de menace(identique au VLAN natif du port trunk).  La balise intérieure est le VLAN victime.

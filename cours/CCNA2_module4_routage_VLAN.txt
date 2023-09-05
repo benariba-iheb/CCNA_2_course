@@ -1,5 +1,5 @@
 ===========================
-module2: routage inter-VLAN
+module-4: routage inter-VLAN
 ===========================
 
 -Le routage inter-VLAN est un processus d'acheminement du trafic réseau d'un VLAN à un autre.
@@ -16,44 +16,4 @@ les types de routage IV:
 	~commutateur de couche3	: utiliser des commutateurs de couche 3 et des interfaces virtuelles commutées (SVI).
 		- les SVI sont créés de la même manière que l'interface VLAN de gestion est configurée.
 		- plus rapide que le modèle Router-on-a-stick (routage assure de maniere materielle)
-		- rend le port du SWITCH de couche2 en couche3(port route(similaire a un port de routeur)) 
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		- rend le port du SWITCH de couche2 en couche3(port route(similaire a un port de routeur)).

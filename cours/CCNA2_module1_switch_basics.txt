@@ -1,0 +1,51 @@
+==========
+chapitre1:
+==========
+
+-sequence de demarage du commutateur:
+	1~ charge un programme POST(power-on self-test) stocke en ROM, il verifie: CPU - DRAM - flash file system
+	2~ charge le programme boot-loader du ROM et est execute directement apres que le POST se termine sns erreurs
+	3~ le boot-loader fait l'initilisation du CPU et de ses registre
+	4~ le boot-loader fait l'initialisation du flash file system
+	5~ le boot-loader localise et charge l'OS(IOS) dans la memoire et lui donne controle sur le switch
+
+
+
+-le system BOOT:
+	~ le switch tente automatiquement de booter en utilisant la variable d'environnement boot.
+	~ si cette variable n'est pas definit le switch execute le premier executable qu'il trouve
+	~ le fichier d'image se trouve generalement dans un dossier avec le meme nom 
+	~ l'IOS initialise les interfaces en utilisant les commandes trouvees dans startup-config(config.txt) localise dans le flash
+	
+
+
+-les led d'indication ddes etats des ports:
+	~ SYST:		indique si le systeme est actif et fonctionne coorectement
+	~ RPS:		(redundant power system) montre si le switch a une source d'energie redendante
+	~ STAT:		(port status led) indique l'etat du port(actif , admin.down , ...)
+	~ DUPLX: 	inique le mode duplex des ports
+	~ SPEED: 	indique la vitesse des ports a l'aide de couleurs
+	~ PoE:		indique les parametre PoE du Switch et des ports
+
+
+
+-regler un crash:
+	~ connecter un PC au switch a l'aide d'un cable console
+	~ debrancher le cable du switch
+	~ rebrancher le cable du switch et apres 15s presser sur le boutton "mode" (le led SYST est entrein de flasher)
+	~ continuer de presser sur le boutton mode jusqu'a ce que le led change de couleur
+	~ l'interface boot-loadder s'affiche ( SWITCH:  )
+	~ utiliser (? et help)
+	~ pour trouver la variable d'environnement boot on utilise la commnade "set"
+	~ pour reinitialiser le switch on utilise la commande "flash_init"
+	~ (dir flash:) affiche les dossiers et fichier dans le flash
+	~ (BOOT=flash:nom_du_fichier) pour changer la variable d'environnement BOOT
+	
+	! d'autre options peuvent etre configurer a travers ce mode: formattage , installation d'un nv OS , reccuperer des mdp ...
+
+
+
+-management du switch:
+	~ configuration d'une SVI
+	~ configuration de la passerelle sur le switch(pour acces a distance)
+	~ verification de la configuration
