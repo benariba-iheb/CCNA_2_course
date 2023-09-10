@@ -1,0 +1,59 @@
+=================================
+configuration: securite des ports
+=================================
+
+- configuration du port-security: 
+	S(config-if-range)# switchport mode access					# port-security marche uniquement avec le mode access
+	S(config-if-range)# switchport port-security maximum {nmbr} 			# nmbr maximale d'@_MAC sur un seul port
+	S(config-if-range)# switchport port-security mac-address {@MAC | sticky}	# configuration mannuelle/dynamique d'une @_MAC a un port
+
+	S(config-if-range)# switchport port-security aging {static | time {time} | type {absolute|inactivity} }		# statique: aging statique
+															# time: precise le temp du bail
+															# type: absolute(expiration apres fin du bail configure) | inactivity(expiration apres periode d'inactivite)
+
+	S(config-if-range)# switchport port-security violation {protect | restrict | shutdown}	 	# shutdown: port s'eteint 	|     genere un syslog     | 	incremente le counter e violation
+													# restrict: port s'eteint pas 	|     genere un syslog     | 	incremente le counter
+													# protect:  port s'eteint pas 	|   genere pas un syslog   | 	incremente le counter
+
+
+- securite STP:
+	portfast:
+		S(config)# interface {interface_ID}
+		S(config-if)# switchport mode access  
+		S(config-if)# spanning-tree portfast
+	
+	bpdu-guard:
+		S(config)# interface {interface_ID}				#configuration sur un seul port access
+		S(config-if)# spanning-tree bpduguard enable
+
+		S(config)# spanning-tree portfast bpduguard default		# configuration sur tout les port access
+
+
+-securite VLAN:
+	desactivation DTP:
+		S(config-if-range)# switchport nonegotiate		# desactive DTP sur les port "trunk"
+
+
+- securite DHCP:
+	S(config)# ip dhcp snooping
+	S(config)# ip dhcp snooping vlan {ID_vlan}			# doit etre configure sur chaque vlan
+	S(config-if)# ip dhcp snooping trust			# se fait sur les ports uplink vers le serveur dhcp
+	S(config-if)# ip dhcp snooping limit rate {num}		# definit la limite de message venues des port downlink
+
+
+
+-securite ARP:
+	S(config)# ip arp inspection vlan {ID_vlan}			
+	S(config-if-range)# ip arp inspection trust		# se fait sur les ports	non termineaux
+
+=============
+verification:
+=============
+
+- verification du port-security:
+	S# sh port-security interface {interface_ID}
+	S# sh port-security address
+
+
+-DHCP-snooping:
+	S# sh ip dhcp snooping

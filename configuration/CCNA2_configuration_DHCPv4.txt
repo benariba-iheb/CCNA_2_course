@@ -1,0 +1,46 @@
+===================
+configuration: DHCP
+===================
+
+- reservation d'un range d'adresses IP pour les assigners statiquement:
+	R(config)# ip dhcp excluded-address {1ere_@IP} {derniere_@IP}		# le second champ peut etre ignore si on veut exclure une seul adresse
+
+
+
+- creation du pool d'adresses:
+	R(config)# ip dhcp pool {nom_pool}
+
+	R(dhcp-config)# network {@reseau} {prefixe || masque}
+	R(dhcp-config)# dns-server {@DNS}
+	R(dhcp-config)# domain-name {nom_domaine}		
+	R(dhcp-config)# default-router {@default-router}
+	R(dhcp-config)# lease {jour [heures] [minute] || infinite}
+
+
+
+- activation/desactivation du service DHCP:
+	R(config)# service dhcp
+	R(config)# no service dhcp
+
+
+
+- recevoire une @IP du DHCP pour un routeur:
+	R(config-if)# ip address dhcp
+
+
+
+- configuration d'un relais dhcp:
+	R(config)# interface {ID_interface}	  		# l'interface configuree doit etre du cote qui va envoyer des demandes DHCP
+	R(config-if)# ip helper-addresse {@serveur_DHCP} 	# "ip helper" va canalise les requete de diffusion vers l'adresse precisee (fonctionne pour d'autres protocoles)
+
+
+
+-------------
+verification:
+-------------
+
+- affichage du binding d'adresses:
+	R# sh ip dhcp binding
+
+-affichage des statistique du serveur dhcp:
+	R# sh ip dhcp server statistics  

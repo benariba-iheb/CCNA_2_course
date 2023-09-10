@@ -1,0 +1,51 @@
+=====================
+configuration DHCPv6:
+=====================
+
+- creation du pool d'adresses:
+	R(config)# ipv6 dhcp pool {nom-pool}
+	R(config-dhcpv6)# address {IPv6_@}
+	R(config-dhcpv6)# domain-name {domain-name}
+
+
+
+
+- configuration sans etat:
+
+	~ methode SLAAC:(pas besoin d'un pool)
+		R(config)# ipv6 unicast-routing		#activation du routage ipv6 | cette commande active automatiquement le SLAAC si une adresse GUA est configure
+		R(config-if)# ipv6 address {@GUA}	
+
+
+
+	~ methode stateless DHCPv6: (l'adresse est attribue a partir du MAC)
+	   - configuration de l'interface
+		R(config)# ipv6 unicast-routing			
+		R(config-if)# ipv6 address {@GUA}
+
+	   - creation du serveur DHCP_stateless (l'ajout d'information complaimentaires)
+		R(config)# ipv6 dhcp pool {pool-name}
+		R(config)# [dns-sever {@servr_DNS} | domain-name {domain-name} | ...]
+
+	   - definir le type de reponse-RS comme "other"
+		R(config-if)# ipv6 nd other-config-flag
+		R(config-if)# ipv6 dhcp server {name-pool}
+		
+
+
+	~ methode statefull:
+    1er routeur:
+	   - configuration de l'interface
+		R1(config)# ipv6 unicast-routing			
+		R1(config-if)# ipv6 address {@GUA}
+
+	   - creation du serveur DHCP (l'ajout d'information complaimentaires)
+		R1(config)# ipv6 dhcp pool {pool-name}
+		R1(config)# [dns-sever {@servr_DNS} | domain-name {domain-name} | ...]
+		R(config-if)# ipv6 dhcp server {name-pool}
+
+    2eme routeur:
+	   - definir un relai DHCP:
+		R2(config)# interface {interface_LAN}
+		R2(config-if)# ipv6 nd managed-config-flag		# precise le mode statefull
+		R2(config-if)# ipv6 dhcp relay destination {@IP_R1} {interface de sortie}
