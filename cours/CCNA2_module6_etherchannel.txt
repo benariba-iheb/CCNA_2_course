@@ -7,7 +7,7 @@ etherchannel:
 - avantage etherchannel:
 	~ facilite la configuration de plsr interfaces dans le meme groupe
 	~ evite des depenses supplemanttaire sur les equipement
-	~ STP fonctionne considere les groupes etherchannel comme un seul port logique
+	~ STP fonctionne et considere les groupes etherchannel comme un seul port logique
 	~ plsr methodes d'equilibrage de charge (MAC_src - MAC_dst - IP_src ....)
 
 -restricitions:
