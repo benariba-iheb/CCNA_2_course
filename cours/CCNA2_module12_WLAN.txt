@@ -1,0 +1,57 @@
+==============
+WLAN_concepts:
+==============
+
+- types de points d'acces:
+	~ autonomous AP
+	~ controller-based AP
+
+- types d'antennes:
+	~ omnidirectionelle (360deg)
+	~ directionnelle
+	~ Multiple Input Multiple Output (MIMO)
+
+- topologies wireless:
+	~ ad hoc : 		point a point sans fils
+	~ infrastructure:	utilisation d'un point d'acces
+	~ tehtering:		partage de connexion a l'aide d'un smartphone
+
+-types de reseaux avec infrastructure:
+	~ BSS : utilise un seul AP dans le reseau (BSSID)
+	~ ESS : utilisation de plsr AP (SSID)
+
+- le protocole 802.11 utilise 4 adresses dans ces trames (la quatrieme est pour les reseaux ad-hoc)
+
+- etapes de connexion client a un AP:
+	~ discover 
+	~ authenticate
+	~ associate
+
+-les mode de connexion a un AP:
+	~ passive:	l'AP s'annonce avec des beacon
+	~ active:	le client doit connaitre le SSID pour se connecter
+
+
+- protocole CAPWAP:
+	~ utilise dans les reseaux avec un controleur des AP
+	~ distribution des fonctions sur les AP et le WLC
+	~ utilise le protocole de cryptage DTLS
+	
+- flex connect vous permet de configurer des AP a travers des liaisons WAN (CAPWAP pour WAN)
+
+-methode de modulation de frequences:
+	~ DSSS
+	~ FHSS
+	~ OFDM
+
+- risque WLAN:
+	~ DOS
+	~ AP rogue
+	~ MITM attacks
+	
+- methode de prevention:
+	~ desactivation du SSID-broadcast
+	~ methode d'authentification:
+		- open-sys(sans-mdp)
+		- shared-key(mdp)
+	~ cryptage

@@ -8,9 +8,9 @@ CCNA2_module10: securite des termineaux
 	~ programme mlveillant (malware)
 
 -les appareils de securite reseau:
-	~ VPN-routeur: 		fournit une connexion sécurisée aux utilisateurs distants sur un réseau public et dans le réseau d'entreprise.
-	~ pare-feu de nouvelle generation(NGFW):	 inspection des paquets avec état, une visibilité et un contrôle des applications, un système de prévention des intrusions de nouvelle génération (NGIPS), une protection avancée contre les logiciels malveillants (AMP) et un filtrage d'URL.
-	~ NAC:			comprend des services d'authentification, d'autorisation et de comptabilité (AAA / Authentication, Authorization, Accounting).
+	~ 	    VPN-routeur:		 fournit une connexion sécurisée aux utilisateurs distants sur un réseau public et dans le réseau d'entreprise.
+	~ pare-feu de nouvelle generation(NGFW): inspection des paquets avec état, une visibilité et un contrôle des applications, un système de prévention des intrusions de nouvelle génération (NGIPS), une protection avancée contre les logiciels malveillants (AMP) et un filtrage d'URL.
+	~ 		NAC:			 comprend des services d'authentification, d'autorisation et de comptabilité (AAA / Authentication, Authorization, Accounting).
 
 -de nos jours les termineaux sont proteges par:
 	~ NAC
@@ -50,7 +50,7 @@ RMRQ:	apres l'auth le routeur demande l'autorisation du serveur AAA
 		-inondation de l'adresse MAC(en utilisant "macof").
 			~ les commutateur  peut manquer de ressources pour stocker les adresses MAC.
 			~ l'acteur genere rapidement de nombreuses @MAC
-			~ qd la table MAC du switch est remplie ils commance a inonder toutes les trames qu'il recoit
+			~ qd la table MAC d'un switch se remplie, ils commance a inonder toutes les trames qu'il recoit
 			~ ces trames peuvent etre capturees par un outil de reniflage
 
 	~ Attaques de VLAN : 
@@ -65,46 +65,13 @@ RMRQ:	apres l'auth le routeur demande l'autorisation du serveur AAA
 			~ la balise VLAN-cible est toujours intacte et n'a pas été inspectée par le premier commutateur.
 			~ Le deuxième commutateur voit que la balise 802.1Q interne que l'acteur de menace a insérée est destinée au VLAN-cible.
 
-	~ Attaques DHCP : famine DHCP et usurpation DHCP.
-	~ Attaques ARP : usurpation d'identité ARP et empoisonnement ARP.
-	~ Attaques par usurpation d'adresse : usurpation d'adresse MAC et d'adresse IP.
-	~ Attaques STP : manipulation du protocole Spanning Tree.
+	~ 	   Attaques DHCP :		famine DHCP et usurpation DHCP.
+	~ 	   Attaques ARP : 		usurpation d'identité ARP et empoisonnement ARP.
+	~ Attaques par usurpation d'adresse : 	usurpation d'adresse MAC et d'adresse IP.
+	~ 	   Attaques STP : 		manipulation du protocole Spanning Tree.
 
 -les technique d'attenuation:	
-	~ Sécurité des ports : Empêche les attaques d'inondation d'adresses MAC et les attaques de famine DHCP.
-	~ Surveillance DHCP : Empêche la famine du DHCP et l'usurpation du DHCP.	
-	~ Inspection ARP dynamique (DAI) : Empêche l'usurpation d'ARP et l'empoisonnement d'ARP.
-	~ Protection de la source IP (IPSGuard) : Empêche l'usurpation d'adresse MAC et IP.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	~ 	   Sécurité des ports : 		Empêche les attaques d'inondation d'adresses MAC et les attaques de famine DHCP.
+	~ 	   Surveillance DHCP : 			Empêche la famine du DHCP et l'usurpation du DHCP.	
+	~    Inspection ARP dynamique (DAI) : 		Empêche l'usurpation d'ARP et l'empoisonnement d'ARP.
+	~ Protection de la source IP (IPSGuard) : 	Empêche l'usurpation d'adresse MAC et IP.
